@@ -56,11 +56,9 @@ public class ClientDCD {
                 try {
 
                     // On stock les fichier exit pour avoir l'exit et le nom de fichier avec les "..."                        
-                    // résoud le problème de nom de fichier avec des points                        
-                    File root = new File(repertoire);
-                    File[] list = root.listFiles();
-                    String nomFichier = null;
-                    HashMap tableFichierClient = new HashMap();
+                    // résoud le problème de nom de fichier avec des points       
+                    
+                    HashMap tableFichierClient = Outil.getListExitClient();
 
                     
                     

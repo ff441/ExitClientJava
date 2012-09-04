@@ -5,7 +5,13 @@
 package outils;
 
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.HashMap;
+import java.util.Properties;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -26,11 +32,24 @@ public class Outil {
         fichierTemp.delete();
     }
 
-    public static void getListExitClient() {
+    public static HashMap getListExitClient() throws IOException {
         //On génère liste des id clients grâce aux fichiers
         //Les points sont supprimés pour avoir un id cohérent
         
-        File root = new File(repertoire);
+        Properties prop = new Properties();
+        /* Ici le fichier contenant les données de configuration est nommé 'db.myproperties' */
+        FileInputStream in;
+        try {
+            in = new FileInputStream("config.properties");
+            prop.load(in);
+            in.close();
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(Outil.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        String repertoireExit = prop.getProperty("repertoireExit");
+        
+        
+        File root = new File(repertoireExit);
         File[] list = root.listFiles();
         String nomFichier = null;
         HashMap tableFichierClient = new HashMap();
@@ -43,5 +62,6 @@ public class Outil {
                 tableFichierClient.put(idClientFichier, f.getName());
             }
         }
+        return tableFichierClient;
     }
 }
